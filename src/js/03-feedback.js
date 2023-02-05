@@ -5,7 +5,11 @@ const formRef = document.querySelector('.feedback-form');
 const inputRef = document.querySelector('input[type="email"]');
 const textareaRef = document.querySelector('textarea[name="message"]');
 const LOCAL_STORAGE_KEY = 'feedback-form-state';
-const localStorageObj = {};
+const localStorageObj = {
+  email: '',
+  message: '',
+};
+const labelsRef = document.querySelectorAll('label');
 
 // Відправляємо дані в локальне сховище
 const onInputChange = function (e) {
@@ -37,6 +41,13 @@ getLatestInputData();
 // Відправка форми. Очищення полів та виведення в консоль даних форми у вигляді об'єкта.
 const onFormSubmit = e => {
   e.preventDefault();
+  console.log(labelsRef);
+
+  // Перевіряння, чи заповнені усі поля
+  if ([...labelsRef].some(e => e.firstElementChild.value === '')) {
+    alert('Заповніть пусті поля');
+  }
+
   e.currentTarget.reset();
   localStorage.removeItem(LOCAL_STORAGE_KEY);
   console.log(localStorageObj);
