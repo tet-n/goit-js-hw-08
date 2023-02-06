@@ -5,10 +5,7 @@ const formRef = document.querySelector('.feedback-form');
 const inputRef = document.querySelector('input[type="email"]');
 const textareaRef = document.querySelector('textarea[name="message"]');
 const LOCAL_STORAGE_KEY = 'feedback-form-state';
-const localStorageObj = {
-  email: '',
-  message: '',
-};
+const localStorageObj = {};
 const labelsRef = document.querySelectorAll('label');
 
 // Відправляємо дані в локальне сховище
@@ -32,8 +29,8 @@ const getLatestInputData = function () {
   const formData = JSON.parse(localStorageData);
 
   if (localStorageData) {
-    inputRef.value = formData.email;
-    textareaRef.value = formData.message;
+    inputRef.value = formData.email ?? '';
+    textareaRef.value = formData.message ?? '';
   }
 };
 getLatestInputData();
@@ -46,11 +43,11 @@ const onFormSubmit = e => {
   // Перевіряння, чи заповнені усі поля
   if ([...labelsRef].some(e => e.firstElementChild.value === '')) {
     alert('Заповніть пусті поля');
+  } else {
+    e.currentTarget.reset();
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    console.log(localStorageObj);
   }
-
-  e.currentTarget.reset();
-  localStorage.removeItem(LOCAL_STORAGE_KEY);
-  console.log(localStorageObj);
 };
 
 formRef.addEventListener('submit', onFormSubmit);
