@@ -9,6 +9,7 @@ const STORAGE_TIME_KEY = 'videoplayer-current-time';
 
 // Записуємо поточний час у сховище
 const onPlayPlayer = function (e) {
+  console.log(e);
   const timeWasPlayed = e.seconds;
   localStorage.setItem(STORAGE_TIME_KEY, timeWasPlayed);
 
@@ -19,5 +20,11 @@ const onPlayPlayer = function (e) {
 player.on('timeupdate', throttle(onPlayPlayer, 1000));
 
 // Відтворення відео під час перезавантаження з поточного часу
-const currentTime = localStorage.getItem(STORAGE_TIME_KEY);
-player.setCurrentTime(currentTime);
+const playFromPoint = function () {
+  const currentTime = localStorage.getItem(STORAGE_TIME_KEY);
+  if (currentTime) {
+    player.setCurrentTime(currentTime);
+  }
+};
+
+playFromPoint();
