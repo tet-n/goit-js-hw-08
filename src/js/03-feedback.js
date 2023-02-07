@@ -10,13 +10,13 @@ const LOCAL_STORAGE_KEY = 'feedback-form-state';
 function onInputChange(e) {
   e.preventDefault();
   const { name, value } = e.target;
-  let storageDataisExisted = localStorage.getItem(LOCAL_STORAGE_KEY);
+  let storageDataisExists = localStorage.getItem(LOCAL_STORAGE_KEY);
 
-  storageDataisExisted = storageDataisExisted
-    ? JSON.parse(storageDataisExisted)
+  storageDataisExists = storageDataisExists
+    ? JSON.parse(storageDataisExists)
     : {};
-  storageDataisExisted[name] = value;
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(storageDataisExisted));
+  storageDataExists[name] = value;
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(storageDataisExists));
 }
 
 // Витягуємо дані зі сховища та записуємо в поля форми
